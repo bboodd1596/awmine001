@@ -10,12 +10,14 @@ app.options('*', cors()); // all website use
 app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 const atomicassets_account = "atomicassets";
 const federation_account = "federation";
 const mining_account = "m.federation";
 const token_account = "alien.worlds";
 const collection = "alien.worlds";
-const endpoint = "https://wax.greymass.com"; //
+const endpoint = "https://api.waxsweden.org";
 const atomic_endpoint = ['https://wax.api.atomicassets.io', 'https://wax3.api.atomicassets.io'];
 const { Api, JsonRpc, RpcError, Serialize } = require('eosjs');
 const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');      // development only
@@ -32,8 +34,10 @@ const Int64LE = require(/*! int64-buffer */ "int64-buffer").Int64LE;
 const crypto = require("crypto");
 const Buffer = require('buffer').Buffer  // note: the trailing slash is important!
 const Blob = require('blob');
+const http = require('http');
 
-const ac = require("@antiadmin/anticaptchaofficial");
+http.createServer(app).listen(process.env.PORT);
+
 
 app.get('/', (req, res) => {
     res.json({ account: "Hello World" })  // <==== req.body will be a parsed JSON object
