@@ -1,10 +1,15 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
-var cors = require("cors");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const app = express();
+//app.use(cors({ origin: ['url Website use'] })); 
 app.use(cors());
+app.options('*', cors()); // all website use
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 const atomicassets_account = "atomicassets";
 const federation_account = "federation";
 const mining_account = "m.federation";
@@ -39,10 +44,6 @@ app.post('/worker', async (req, res) => {
     const mine_work = await background_mine(account, DiffBagLand, last_mine_tx);
     res.json(mine_work)
     // res.json({account: account})  // <==== req.body will be a parsed JSON object
-})
-
-app.listen(3000, () => {
-    console.log('Start server at port 3000.')
 })
 
 
