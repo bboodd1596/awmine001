@@ -36,9 +36,6 @@ const Buffer = require('buffer').Buffer  // note: the trailing slash is importan
 const Blob = require('blob');
 const http = require('http');
 
-http.createServer(app).listen(process.env.PORT);
-
-
 app.get('/', (req, res) => {
     res.json({ account: "Hello World" })  // <==== req.body will be a parsed JSON object
 })
